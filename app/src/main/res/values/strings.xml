@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">TodoNotesApp</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <!-- login-->
+    <string name="prompt_email"></string>
+    <string name="prompt_password"></string>
+    <string name="action_sign_in"></string>
+    <string name="action_sign_in_short"></string>
+    <string name="welcome"></string>
+    <string name="invalid_username"></string>
+    <string name="invalid_password"></string>
+    <string name="login_failed"></string>
 </resources>
