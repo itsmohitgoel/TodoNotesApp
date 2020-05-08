@@ -1,9 +1,8 @@
-package com.mohit.todonotesapp
+package com.mohit.todonotesapp.ui.login
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import android.widget.TextView
+import com.mohit.todonotesapp.R
 
 class LoginActivity : AppCompatActivity() {
 

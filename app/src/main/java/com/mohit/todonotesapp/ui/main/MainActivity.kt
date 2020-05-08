@@ -1,7 +1,8 @@
-package com.mohit.todonotesapp
+package com.mohit.todonotesapp.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.mohit.todonotesapp.R
 
 class MainActivity : AppCompatActivity() {
 
