@@ -12,6 +12,8 @@ class MyNotesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_my_notes)
 
         val intent = this.intent
+        val fullName = intent.getStringExtra("full_name")
+        supportActionBar?.title = fullName
         Log.d("IntentDataPass", intent.getStringExtra("full_name"))
     }
 }
