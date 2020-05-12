@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mohit.todonotesapp.R
+import com.mohit.todonotesapp.utils.common.Constants
 import kotlinx.android.synthetic.main.activity_my_notes.*
 import kotlinx.android.synthetic.main.layout_dialog_add_my_notes.*
 import kotlinx.android.synthetic.main.layout_dialog_add_my_notes.view.*
@@ -32,7 +33,7 @@ class MyNotesActivity : AppCompatActivity() {
         }
 
         val intent = this.intent
-        val fullName = intent.getStringExtra("full_name")
+        val fullName = intent.getStringExtra(Constants.FULL_NAME)
         supportActionBar?.title = fullName
         Log.d("IntentDataPass", intent.getStringExtra("full_name"))
     }
@@ -45,7 +46,7 @@ class MyNotesActivity : AppCompatActivity() {
         val editTextDesciption = view.etDialogDesciption
         val buttonSubmit = view.btnSubmitDialog
 
-        val alertDialog : AlertDialog = AlertDialog.Builder(this@MyNotesActivity)
+        val alertDialog: AlertDialog = AlertDialog.Builder(this@MyNotesActivity)
             .setView(view).setCancelable(false).create()
 
         buttonSubmit.setOnClickListener {

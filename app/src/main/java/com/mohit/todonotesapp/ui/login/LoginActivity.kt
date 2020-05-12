@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mohit.todonotesapp.R
 import com.mohit.todonotesapp.ui.MyNotes.MyNotesActivity
+import com.mohit.todonotesapp.utils.common.Constants
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -37,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
 
             if (fullName.isNotEmpty() && lastName.isNotEmpty()) {
                 val intent = Intent(this@LoginActivity, MyNotesActivity::class.java).apply {
-                    putExtra("full_name", fullName)
+                    putExtra(Constants.FULL_NAME, fullName)
                 }
 
                 startActivity(intent)
