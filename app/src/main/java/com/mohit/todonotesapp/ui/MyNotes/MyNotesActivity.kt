@@ -19,24 +19,37 @@ class MyNotesActivity : AppCompatActivity() {
     private lateinit var textViewMyNotesTitle: TextView
     private lateinit var textViewMyNotesDescription: TextView
     private lateinit var floatingButtonAddNotes: FloatingActionButton
+    private var fullName: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_notes)
 
-        textViewMyNotesTitle = tvMyNotesTitle
-        textViewMyNotesDescription = tvMyNotesDescription
-        floatingButtonAddNotes = fabAddNotes
+        bindViews()
+        getIntentData()
 
         floatingButtonAddNotes.setOnClickListener {
             setUpDialog()
         }
 
-        val intent = this.intent
-        val fullName = intent.getStringExtra(Constants.FULL_NAME)
         supportActionBar?.title = fullName
-        Log.d("IntentDataPass", intent.getStringExtra("full_name"))
     }
+
+
+    private fun bindViews() {
+        textViewMyNotesTitle = tvMyNotesTitle
+        textViewMyNotesDescription = tvMyNotesDescription
+        floatingButtonAddNotes = fabAddNotes
+    }
+
+
+    private fun getIntentData() {
+        fullName = intent.run {
+            getStringExtra(Constants.FULL_NAME)
+        }
+    }
+
+
 
     private fun setUpDialog() {
         val view = LayoutInflater.from(this@MyNotesActivity)
