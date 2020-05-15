@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mohit.todonotesapp.R
 import com.mohit.todonotesapp.utils.common.Constants
@@ -20,11 +21,10 @@ import kotlinx.android.synthetic.main.layout_dialog_add_my_notes.view.*
 
 class MyNotesActivity : AppCompatActivity() {
 
-    private lateinit var textViewMyNotesTitle: TextView
-    private lateinit var textViewMyNotesDescription: TextView
     private lateinit var floatingButtonAddNotes: FloatingActionButton
     private var fullName: String? = null
     private lateinit var prefs: SharedPreferences
+    private lateinit var recyclerView : RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +43,7 @@ class MyNotesActivity : AppCompatActivity() {
 
 
     private fun bindViews() {
-        textViewMyNotesTitle = tvMyNotesTitle
-        textViewMyNotesDescription = tvMyNotesDescription
+        recyclerView = rv_notes
         floatingButtonAddNotes = fabAddNotes
     }
 
@@ -71,8 +70,6 @@ class MyNotesActivity : AppCompatActivity() {
             .setView(view).setCancelable(false).create()
 
         buttonSubmit.setOnClickListener {
-            textViewMyNotesTitle.text = editTextTitle.text.toString()
-            textViewMyNotesDescription.text = editTextDesciption.text.toString()
 
             alertDialog.hide()
 
