@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mohit.todonotesapp.R
+import com.mohit.todonotesapp.data.model.Note
 import com.mohit.todonotesapp.utils.common.Constants
 import com.mohit.todonotesapp.utils.common.PrefConstant
 import kotlinx.android.synthetic.main.activity_my_notes.*
@@ -24,7 +25,9 @@ class MyNotesActivity : AppCompatActivity() {
     private lateinit var floatingButtonAddNotes: FloatingActionButton
     private var fullName: String? = null
     private lateinit var prefs: SharedPreferences
-    private lateinit var recyclerView : RecyclerView
+    private lateinit var recyclerView: RecyclerView
+
+    val dataList: MutableList<Note> = mutableListOf<Note>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,9 +73,10 @@ class MyNotesActivity : AppCompatActivity() {
             .setView(view).setCancelable(false).create()
 
         buttonSubmit.setOnClickListener {
+            val note = Note(editTextTitle.text.toString(), editTextDesciption.text.toString())
+            dataList.add(note)
 
             alertDialog.hide()
-
         }
 
         alertDialog.show()
