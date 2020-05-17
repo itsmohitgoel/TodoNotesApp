@@ -1,23 +1,21 @@
 package com.mohit.todonotesapp.ui.MyNotes
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mohit.todonotesapp.R
 import com.mohit.todonotesapp.data.model.Note
+import com.mohit.todonotesapp.ui.MyNotes.notes.NotesAdapter
 import com.mohit.todonotesapp.utils.common.Constants
 import com.mohit.todonotesapp.utils.common.PrefConstant
 import kotlinx.android.synthetic.main.activity_my_notes.*
-import kotlinx.android.synthetic.main.layout_dialog_add_my_notes.*
 import kotlinx.android.synthetic.main.layout_dialog_add_my_notes.view.*
 
 class MyNotesActivity : AppCompatActivity() {
@@ -32,10 +30,11 @@ class MyNotesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_notes)
-        setSharedPreferences()
+        setupSharedPreferences()
 
         bindViews()
         getIntentData()
+        setUpRecyclerView(dataList)
 
         floatingButtonAddNotes.setOnClickListener {
             setUpDialog()
@@ -76,6 +75,7 @@ class MyNotesActivity : AppCompatActivity() {
             val note = Note(editTextTitle.text.toString(), editTextDesciption.text.toString())
             dataList.add(note)
 
+//            setUpRecyclerView(dataList)
             alertDialog.hide()
         }
 
@@ -83,7 +83,16 @@ class MyNotesActivity : AppCompatActivity() {
 
     }
 
-    private fun setSharedPreferences() {
+    private fun setupSharedPreferences() {
         prefs = getSharedPreferences(PrefConstant.SHARED_PREF_NAME, Context.MODE_PRIVATE)
     }
+
+    private fun setUpRecyclerView(dataList: MutableList<Note>) {
+        val adapter: NotesAdapter = NotesAdapter(dataList)
+        val llManager: LinearLayoutManager = LinearLayoutManager(this@MyNotesActivity)
+        llManager.orientation = RecyclerView.VERTICAL
+        recyclerView.layoutManager = llManager
+        recyclerView.adapter = adapter
+    }
+
 }
