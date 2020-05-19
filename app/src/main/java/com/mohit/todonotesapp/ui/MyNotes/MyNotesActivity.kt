@@ -1,11 +1,13 @@
 package com.mohit.todonotesapp.ui.MyNotes
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +17,7 @@ import com.mohit.todonotesapp.R
 import com.mohit.todonotesapp.data.model.Note
 import com.mohit.todonotesapp.ui.MyNotes.clicklisteners.ItemClickListener
 import com.mohit.todonotesapp.ui.MyNotes.notes.NotesAdapter
+import com.mohit.todonotesapp.ui.detail.DetailActivity
 import com.mohit.todonotesapp.utils.common.Constants
 import com.mohit.todonotesapp.utils.common.PrefConstant
 import kotlinx.android.synthetic.main.activity_my_notes.*
@@ -74,10 +77,16 @@ class MyNotesActivity : AppCompatActivity() {
             .setView(view).setCancelable(false).create()
 
         buttonSubmit.setOnClickListener {
-            val note = Note(editTextTitle.text.toString(), editTextDesciption.text.toString())
-            dataList.add(note)
+            val title = editTextTitle.text.toString()
+            val description = editTextDesciption.text.toString()
 
-//            setUpRecyclerView(dataList)
+
+            if (!TextUtils.isEmpty(title) && !TextUtils.isEmpty(description)) {
+                dataList.add(Note(title, description))
+            } else {
+                Toast.makeText(this, "Can't Create a Empty Note", Toast.LENGTH_SHORT).show()
+            }
+
             alertDialog.hide()
         }
 
@@ -92,7 +101,10 @@ class MyNotesActivity : AppCompatActivity() {
     private fun setUpRecyclerView(dataList: MutableList<Note>) {
         val clickListener = object : ItemClickListener {
             override fun onClick(note: Note) {
-                Log.d("MyNotesLog", note.title)
+                val intent = Intent(this@MyNotesActivity, DetailActivity::class.java)
+                intent.putExtra(Constants.TITLE, note.title)
+                intent.putExtra(Constants.DESCRIPTION, note.description)
+                startActivity(intent)
             }
         }
 
