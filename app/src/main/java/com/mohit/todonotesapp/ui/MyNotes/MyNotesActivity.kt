@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mohit.todonotesapp.R
 import com.mohit.todonotesapp.data.model.Note
+import com.mohit.todonotesapp.ui.MyNotes.clicklisteners.ItemClickListener
 import com.mohit.todonotesapp.ui.MyNotes.notes.NotesAdapter
 import com.mohit.todonotesapp.utils.common.Constants
 import com.mohit.todonotesapp.utils.common.PrefConstant
@@ -88,7 +90,13 @@ class MyNotesActivity : AppCompatActivity() {
     }
 
     private fun setUpRecyclerView(dataList: MutableList<Note>) {
-        val adapter: NotesAdapter = NotesAdapter(dataList)
+        val clickListener = object : ItemClickListener {
+            override fun onClick(note: Note) {
+                Log.d("MyNotesLog", note.title)
+            }
+        }
+
+        val adapter: NotesAdapter = NotesAdapter(dataList, clickListener)
         val llManager: LinearLayoutManager = LinearLayoutManager(this@MyNotesActivity)
         llManager.orientation = RecyclerView.VERTICAL
         recyclerView.layoutManager = llManager
