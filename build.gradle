@@ -26,3 +26,9 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext{
+    //DB
+    room_version = '2.0.0'
+    debug_db_version = '1.0.6'
+}
