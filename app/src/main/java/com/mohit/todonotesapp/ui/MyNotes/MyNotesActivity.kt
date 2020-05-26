@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -13,8 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.mohit.todonotesapp.NotesApp
 import com.mohit.todonotesapp.R
-import com.mohit.todonotesapp.data.model.Note
+import com.mohit.todonotesapp.data.local.db.entity.NotesEntity
 import com.mohit.todonotesapp.ui.MyNotes.clicklisteners.ItemClickListener
 import com.mohit.todonotesapp.ui.MyNotes.notes.NotesAdapter
 import com.mohit.todonotesapp.ui.detail.DetailActivity
@@ -30,7 +30,7 @@ class MyNotesActivity : AppCompatActivity() {
     private lateinit var prefs: SharedPreferences
     private lateinit var recyclerView: RecyclerView
 
-    val dataList: MutableList<Note> = mutableListOf<Note>()
+    val dataList: MutableList<NotesEntity> = mutableListOf<NotesEntity>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,8 @@ class MyNotesActivity : AppCompatActivity() {
 
         bindViews()
         getIntentData()
-        setUpRecyclerView(dataList)
+        getNotesFromDb()
+        setUpRecyclerView()
 
         floatingButtonAddNotes.setOnClickListener {
             setUpDialog()
@@ -82,7 +83,8 @@ class MyNotesActivity : AppCompatActivity() {
 
 
             if (!TextUtils.isEmpty(title) && !TextUtils.isEmpty(description)) {
-                dataList.add(Note(title, description))
+                dataList.add(NotesEntity(title = title, description = description))
+                addNoteToDb(NotesEntity(title = title, description = description))
             } else {
                 Toast.makeText(this, "Can't Create a Empty Note", Toast.LENGTH_SHORT).show()
             }
@@ -98,13 +100,20 @@ class MyNotesActivity : AppCompatActivity() {
         prefs = getSharedPreferences(PrefConstant.SHARED_PREF_NAME, Context.MODE_PRIVATE)
     }
 
-    private fun setUpRecyclerView(dataList: MutableList<Note>) {
+    private fun setUpRecyclerView() {
         val clickListener = object : ItemClickListener {
-            override fun onClick(note: Note) {
+            override fun onClick(note: NotesEntity) {
                 val intent = Intent(this@MyNotesActivity, DetailActivity::class.java)
                 intent.putExtra(Constants.TITLE, note.title)
                 intent.putExtra(Constants.DESCRIPTION, note.description)
                 startActivity(intent)
+            }
+
+            override fun onUpdate(noteEntity: NotesEntity) {
+                val notesapp = applicationContext as NotesApp
+                val notesDao = notesapp.getNotesDb().notesDao()
+
+                notesDao.updateNote(noteEntity)
             }
         }
 
@@ -115,4 +124,17 @@ class MyNotesActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
     }
 
+    private fun addNoteToDb(noteEntity: NotesEntity) {
+        val notesapp: NotesApp = applicationContext as NotesApp
+        val notesDao = notesapp.getNotesDb().notesDao()
+        notesDao.insertNote(noteEntity)
+
+    }
+
+    private fun getNotesFromDb() {
+        val notesapp = applicationContext as NotesApp
+        val notesDao = notesapp.getNotesDb().notesDao()
+
+        dataList.addAll(notesDao.getAllNotes())
+    }
 }

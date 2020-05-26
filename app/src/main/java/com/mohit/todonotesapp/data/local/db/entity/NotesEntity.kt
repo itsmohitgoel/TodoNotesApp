@@ -18,7 +18,7 @@ import androidx.room.PrimaryKey
 
 data class NotesEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    val id: Long? = null,
 
     @ColumnInfo(name = "title")
     val title: String,
@@ -30,5 +30,5 @@ data class NotesEntity(
     val imagPath: String = "",
 
     @ColumnInfo(name = "isTaskCompleted")
-    val isTaskCompleted: Boolean = false
+    var isTaskCompleted: Boolean = false
 )

@@ -3,13 +3,15 @@ package com.mohit.todonotesapp.ui.MyNotes.notes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import androidx.recyclerview.widget.RecyclerView
 import com.mohit.todonotesapp.R
+import com.mohit.todonotesapp.data.local.db.entity.NotesEntity
 import com.mohit.todonotesapp.data.model.Note
 import com.mohit.todonotesapp.ui.MyNotes.clicklisteners.ItemClickListener
 import kotlinx.android.synthetic.main.itemview_notes.view.*
 
-class NotesAdapter(val notesList: MutableList<Note>, val itemClickListener: ItemClickListener) :
+class NotesAdapter(val notesList: MutableList<NotesEntity>, val itemClickListener: ItemClickListener) :
     RecyclerView.Adapter<NotesItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesItemViewHolder {
@@ -23,11 +25,17 @@ class NotesAdapter(val notesList: MutableList<Note>, val itemClickListener: Item
 
     override fun onBindViewHolder(holder: NotesItemViewHolder, position: Int) {
         val noteItem = notesList[position]
-        holder.itemView.tvTitle.text = noteItem.title
-        holder.itemView.tvDescription.text = noteItem.description
+        holder.tvTitle.text = noteItem.title
+        holder.tvDescription.text = noteItem.description
+        holder.adapterMarkStatus.isChecked = noteItem.isTaskCompleted
 
-        holder.itemView.setOnClickListener {
-            itemClickListener.onClick(noteItem)
-        }
+        holder.itemView.setOnClickListener { itemClickListener.onClick(noteItem) }
+
+        holder.adapterMarkStatus.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
+            override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
+                 noteItem.isTaskCompleted = p1
+                itemClickListener.onUpdate(noteItem)
+            }
+        })
     }
 }

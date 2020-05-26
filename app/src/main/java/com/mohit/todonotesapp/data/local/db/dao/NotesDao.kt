@@ -1,20 +1,20 @@
 package com.mohit.todonotesapp.data.local.db.dao
 
 import androidx.room.*
-import com.mohit.todonotesapp.data.model.Note
+import com.mohit.todonotesapp.data.local.db.entity.NotesEntity
 
 @Dao
 interface NotesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertNote(note: Note)
+    fun insertNote(note: NotesEntity)
 
     @Update
-    fun updateNote(note: Note)
+    fun updateNote(note: NotesEntity)
 
     @Delete
-    fun deleteNote(note: Note)
+    fun deleteNote(note: NotesEntity)
 
     @Query("SELECT * FROM notesdata")
-    fun getAllNotes(): List<Note>
+    fun getAllNotes(): List<NotesEntity>
 }
