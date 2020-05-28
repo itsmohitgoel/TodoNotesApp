@@ -28,6 +28,7 @@
 
         <activity android:name=".ui.MyNotes.MyNotesActivity" />
         <activity android:name=".ui.detail.DetailActivity" />
+        <activity android:name=".ui.addNotes.AddNotesActivity" />
     </application>
 
 </manifest>
