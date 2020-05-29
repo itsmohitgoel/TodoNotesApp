@@ -1,7 +1,6 @@
-package com.mohit.todonotesapp.ui.MyNotes.clicklisteners
+package com.mohit.todonotesapp.ui.mynotes.clicklisteners
 
 import com.mohit.todonotesapp.data.local.db.entity.NotesEntity
-import com.mohit.todonotesapp.data.model.Note
 
 interface ItemClickListener {
     fun onClick(note: NotesEntity)

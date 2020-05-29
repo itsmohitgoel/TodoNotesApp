@@ -1,4 +1,4 @@
-package com.mohit.todonotesapp.ui.MyNotes.notes
+package com.mohit.todonotesapp.ui.mynotes.notes
 
 import android.view.View
 import android.widget.CheckBox

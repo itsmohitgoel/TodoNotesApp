@@ -10,7 +10,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mohit.todonotesapp.R
-import com.mohit.todonotesapp.ui.MyNotes.MyNotesActivity
+import com.mohit.todonotesapp.ui.mynotes.MyNotesActivity
 import com.mohit.todonotesapp.utils.common.Constants
 import com.mohit.todonotesapp.utils.common.PrefConstant
 import kotlinx.android.synthetic.main.activity_login.*

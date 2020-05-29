@@ -1,4 +1,4 @@
-package com.mohit.todonotesapp.ui.MyNotes.notes
+package com.mohit.todonotesapp.ui.mynotes.notes
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +7,7 @@ import android.widget.CompoundButton
 import androidx.recyclerview.widget.RecyclerView
 import com.mohit.todonotesapp.R
 import com.mohit.todonotesapp.data.local.db.entity.NotesEntity
-import com.mohit.todonotesapp.data.model.Note
-import com.mohit.todonotesapp.ui.MyNotes.clicklisteners.ItemClickListener
-import kotlinx.android.synthetic.main.itemview_notes.view.*
+import com.mohit.todonotesapp.ui.mynotes.clicklisteners.ItemClickListener
 
 class NotesAdapter(val notesList: MutableList<NotesEntity>, val itemClickListener: ItemClickListener) :
     RecyclerView.Adapter<NotesItemViewHolder>() {

@@ -1,4 +1,4 @@
-package com.mohit.todonotesapp.ui.MyNotes
+package com.mohit.todonotesapp.ui.mynotes
 
 import android.content.Context
 import android.content.Intent
@@ -15,8 +15,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mohit.todonotesapp.NotesApp
 import com.mohit.todonotesapp.R
 import com.mohit.todonotesapp.data.local.db.entity.NotesEntity
-import com.mohit.todonotesapp.ui.MyNotes.clicklisteners.ItemClickListener
-import com.mohit.todonotesapp.ui.MyNotes.notes.NotesAdapter
+import com.mohit.todonotesapp.ui.addnotes.AddNotesActivity
+import com.mohit.todonotesapp.ui.mynotes.clicklisteners.ItemClickListener
+import com.mohit.todonotesapp.ui.mynotes.notes.NotesAdapter
 import com.mohit.todonotesapp.ui.detail.DetailActivity
 import com.mohit.todonotesapp.utils.common.Constants
 import com.mohit.todonotesapp.utils.common.PrefConstant
@@ -29,6 +30,7 @@ class MyNotesActivity : AppCompatActivity() {
     private var fullName: String? = null
     private lateinit var prefs: SharedPreferences
     private lateinit var recyclerView: RecyclerView
+    val REQUEST_CODE = 200
 
     val dataList: MutableList<NotesEntity> = mutableListOf<NotesEntity>()
 
@@ -43,7 +45,9 @@ class MyNotesActivity : AppCompatActivity() {
         setUpRecyclerView()
 
         floatingButtonAddNotes.setOnClickListener {
-            setUpDialog()
+            //            setUpDialog()
+            val intent = Intent(this, AddNotesActivity::class.java)
+            startActivityForResult(intent, REQUEST_CODE)
         }
 
         supportActionBar?.title = fullName
