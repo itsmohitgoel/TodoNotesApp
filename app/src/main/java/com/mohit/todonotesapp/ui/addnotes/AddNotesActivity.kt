@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
 import com.mohit.todonotesapp.R
 import kotlinx.android.synthetic.main.layout_dialog_selector.view.*
@@ -19,6 +20,8 @@ class AddNotesActivity : AppCompatActivity() {
     lateinit var btnSubmit: MaterialButton
     lateinit var ivAddNotes: ImageView
     val REQUEST_CODE_GALLERY = 2
+    val REQUEST_CODE_CAMERA = 1
+    var imagePath = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,5 +68,23 @@ class AddNotesActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+            REQUEST_CODE_GALLERY -> {
+                val selectedImage = data?.data
+                val filePath = arrayOf(MediaStore.Images.Media.DATA)
+                val contentResolver = contentResolver.query(
+                    selectedImage!!, filePath, null, null, null
+                )
+                contentResolver!!.moveToFirst()
+                val columnIndex = contentResolver.getColumnIndex(filePath[0])
+                imagePath = contentResolver.getString(columnIndex)
+                contentResolver.close()
+                Glide.with(this).load(imagePath).into(ivAddNotes)
+            }
+            REQUEST_CODE_CAMERA -> {
+
+            }
+        }
     }
 }
