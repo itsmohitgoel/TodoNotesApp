@@ -78,9 +78,14 @@ class AddNotesActivity : AppCompatActivity() {
             if (photoFile != null) {
                 imagePath = photoFile.absolutePath
                 Log.d("AddNotesActivity -ipath", imagePath)
-                val imageUri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", photoFile)
+                val imageUri = FileProvider.getUriForFile(
+                    this@AddNotesActivity,
+                    "${BuildConfig.APPLICATION_ID}.provider",
+                    photoFile
+                )
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
                 startActivityForResult(takePictureIntent, REQUEST_CODE_CAMERA)
+                permissionDialog.hide()
             }
         }
 
@@ -96,7 +101,7 @@ class AddNotesActivity : AppCompatActivity() {
 
     private fun createImageFile(): File? {
         val timeStamp = SimpleDateFormat("yyyyMMddHHmmss").format(Date())
-        val fileName = "JPEG_" + timeStamp + "_"
+        val fileName = "JPEG_${timeStamp}_"
         val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
 
         return File.createTempFile(fileName, ".jpg", storageDir)
