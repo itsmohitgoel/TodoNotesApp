@@ -42,15 +42,9 @@ class MyNotesActivity : AppCompatActivity() {
         bindViews()
         getIntentData()
         getNotesFromDb()
+        setupClickListeners()
+        setupActionBarText()
         setUpRecyclerView()
-
-        floatingButtonAddNotes.setOnClickListener {
-            //            setUpDialog()
-            val intent = Intent(this, AddNotesActivity::class.java)
-            startActivityForResult(intent, REQUEST_CODE)
-        }
-
-        supportActionBar?.title = fullName
     }
 
 
@@ -140,5 +134,16 @@ class MyNotesActivity : AppCompatActivity() {
         val notesDao = notesapp.getNotesDb().notesDao()
 
         dataList.addAll(notesDao.getAllNotes())
+    }
+
+    private fun setupClickListeners() {
+        floatingButtonAddNotes.setOnClickListener {
+            val intent = Intent(this, AddNotesActivity::class.java)
+            startActivityForResult(intent, REQUEST_CODE)
+        }
+    }
+
+    private fun setupActionBarText() {
+        supportActionBar?.title = fullName
     }
 }
