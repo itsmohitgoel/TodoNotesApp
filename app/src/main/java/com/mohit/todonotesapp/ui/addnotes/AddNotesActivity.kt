@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
 import com.mohit.todonotesapp.BuildConfig
 import com.mohit.todonotesapp.R
+import com.mohit.todonotesapp.utils.common.Constants
 import kotlinx.android.synthetic.main.layout_dialog_selector.view.*
 import java.io.File
 import java.text.SimpleDateFormat
@@ -57,6 +58,17 @@ class AddNotesActivity : AppCompatActivity() {
         ivAddNotes.setOnClickListener {
             if (checkAndRequestPermission())
                 setupDialog()
+        }
+
+        btnSubmit.setOnClickListener {
+            val resultIntent = Intent().apply {
+                putExtra(Constants.TITLE, etNoteTitle.text.toString())
+                putExtra(Constants.DESCRIPTION, etNoteDescription.text.toString())
+                putExtra(Constants.IMAGE_PATH, imagePath)
+            }
+
+            setResult(Activity.RESULT_OK, resultIntent)
+            finish()
         }
     }
 

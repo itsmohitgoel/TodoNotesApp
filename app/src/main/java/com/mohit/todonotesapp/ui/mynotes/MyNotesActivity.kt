@@ -1,5 +1,6 @@
 package com.mohit.todonotesapp.ui.mynotes
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -30,7 +31,7 @@ class MyNotesActivity : AppCompatActivity() {
     private var fullName: String? = null
     private lateinit var prefs: SharedPreferences
     private lateinit var recyclerView: RecyclerView
-    val REQUEST_CODE = 200
+    val REQUEST_CODE_ADD_NOTE = 200
 
     val dataList: MutableList<NotesEntity> = mutableListOf<NotesEntity>()
 
@@ -139,11 +140,35 @@ class MyNotesActivity : AppCompatActivity() {
     private fun setupClickListeners() {
         floatingButtonAddNotes.setOnClickListener {
             val intent = Intent(this, AddNotesActivity::class.java)
-            startActivityForResult(intent, REQUEST_CODE)
+            startActivityForResult(intent, REQUEST_CODE_ADD_NOTE)
         }
     }
 
     private fun setupActionBarText() {
         supportActionBar?.title = fullName
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                REQUEST_CODE_ADD_NOTE -> {
+                    val title = resultData?.getStringExtra(Constants.TITLE)
+                    val description = resultData?.getStringExtra(Constants.DESCRIPTION)
+                    val imagePath = resultData?.getStringExtra(Constants.IMAGE_PATH)
+
+                    val noteEntity: NotesEntity = NotesEntity(
+                        title = title!!,
+                        description = description!!,
+                        imagPath = imagePath!!,
+                        isTaskCompleted = false
+                    )
+
+                    addNoteToDb(noteEntity)
+                    dataList.add(noteEntity)
+                    recyclerView?.adapter?.notifyItemChanged(dataList.size - 1)
+                }
+            }
+        }
     }
 }

@@ -32,7 +32,7 @@
             android:layout_marginEnd="16dp"
             android:text="Dummy Title"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ivNoteImage"
             app:layout_constraintStart_toEndOf="@+id/checkBoxMarkStatus"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,14 +41,21 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
             android:text="Dummy Description"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/ivNoteImage"
             app:layout_constraintStart_toEndOf="@+id/checkBoxMarkStatus"
             app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+        <ImageView
+            android:id="@+id/ivNoteImage"
+            android:layout_width="67dp"
+            android:layout_height="72dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvTitle"
+            tools:srcCompat="@tools:sample/avatars" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

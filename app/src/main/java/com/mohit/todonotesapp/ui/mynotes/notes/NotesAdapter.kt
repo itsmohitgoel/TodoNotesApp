@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.mohit.todonotesapp.R
 import com.mohit.todonotesapp.data.local.db.entity.NotesEntity
 import com.mohit.todonotesapp.ui.mynotes.clicklisteners.ItemClickListener
@@ -25,13 +26,14 @@ class NotesAdapter(val notesList: MutableList<NotesEntity>, val itemClickListene
         val noteItem = notesList[position]
         holder.tvTitle.text = noteItem.title
         holder.tvDescription.text = noteItem.description
-        holder.adapterMarkStatus.isChecked = noteItem.isTaskCompleted
+        holder.cbMarkStatus.isChecked = noteItem.isTaskCompleted
+        Glide.with(holder.itemView).load(noteItem.imagPath).into(holder.ivNoteImage)
 
         holder.itemView.setOnClickListener { itemClickListener.onClick(noteItem) }
 
-        holder.adapterMarkStatus.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
+        holder.cbMarkStatus.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
             override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
-                 noteItem.isTaskCompleted = p1
+                noteItem.isTaskCompleted = p1
                 itemClickListener.onUpdate(noteItem)
             }
         })
