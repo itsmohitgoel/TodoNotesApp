@@ -80,7 +80,8 @@ class AddNotesActivity : AppCompatActivity() {
         val tvDialogGallery = view.tvDialogGallery
 
         val permissionDialog: AlertDialog = AlertDialog.Builder(this)
-            .setView(view).setCancelable(false).create()
+            .setView(view).create()
+            permissionDialog.setCanceledOnTouchOutside(false)
 
         tvDialogCamera.setOnClickListener {
             val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
