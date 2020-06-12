@@ -17,4 +17,7 @@ interface NotesDao {
 
     @Query("SELECT * FROM notesdata")
     fun getAllNotes(): List<NotesEntity>
+
+    @Query("DELETE FROM notesdata where isTaskCompleted = :status")
+    fun deleteNotesWhenCompleted(status: Boolean)
 }
