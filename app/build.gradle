@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -48,6 +50,7 @@ dependencies {
 
     //workmanager dependency (Used for scehduling a task in the background)
     implementation "androidx.work:work-runtime:2.0.1"
+
 
 
     testImplementation 'junit:junit:4.12'

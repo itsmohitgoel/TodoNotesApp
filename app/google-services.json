@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "664044733504",
+    "firebase_url": "https://todo-mindorks.firebaseio.com",
+    "project_id": "todo-mindorks",
+    "storage_bucket": "todo-mindorks.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:664044733504:android:7a0aa09f237a074ef90ba5",
+        "android_client_info": {
+          "package_name": "com.mohit.todonotesapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "664044733504-nomka4o5lqjkisroqi86593jbrlj09t2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mohit.todonotesapp",
+            "certificate_hash": "89c34b0c878943184c7cd73bd63c7b4b1c2034c5"
+          }
+        },
+        {
+          "client_id": "664044733504-43ci0p5pqobtfqdij1hqp0ft1vos5n11.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzlUNQ-Cr4g9Gr-J6fP7vr6ktNtgwoelk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "664044733504-43ci0p5pqobtfqdij1hqp0ft1vos5n11.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
